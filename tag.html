@@ -1,7 +1,7 @@
 <!doctype html><html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Prompt Tag — Real Jobs + Worlds</title>
+<title>みんなで育てるアシスタント</title>
 <style>
   :root{--bg:#f4f6fb;--card:#fff;--txt:#222;--mut:#666;--chip:#eef1f7}
   html,body{height:100%} body{margin:0;background:var(--bg);font-family:ui-sans-serif,system-ui,Segoe UI,Helvetica,Apple Color Emoji;color:var(--txt)}
@@ -26,13 +26,13 @@
 </head><body>
 <div class="wrap"><div class="card">
   <div class="icon">🧭</div>
-  <h1 id="ttl">Prompt Tag（リアル職業＋世界観）</h1>
-  <div class="sub">①NFC/URLでキャラ設定（#付き）を読み込み → ②職業ボタンを追記 → ③（必要なら世界観ボタンも）→ ④「ChatGPTへ」</div>
+  <h1 id="ttl">みんなで育てるアシスタント</h1>
+  <div class="sub">①NFC/URLでキャラ設定（#付き）を読み込み → ②職業を追記 → ③（必要なら世界観も）→ ④「ChatGPTへ」</div>
 
   <div class="notice">
-    🛈 ご注意：<b>「リアル職業」＝実在の職業の“役割風”で一般情報の案内</b>です。個別の助言にはなりません。<br>
+    🛈 リアル職業は<b>“役割風”で一般情報の案内</b>です（個別の助言ではありません）。<br>
     実在の個人名・事務所名・病院名などの固有名詞は入力しないでください。<br>
-    世界観のうち「掲示板スレ風」は<b>AIが作る擬似コメント</b>で、特定個人・団体とは無関係です。節度ある内容のみを想定します。
+    世界観の「掲示板スレ風」は<b>擬似コメント演出</b>で、特定個人・団体とは無関係です。
   </div>
 
   <textarea id="txt" placeholder="ここに送る文章（プロンプト）が入ります"></textarea>
@@ -43,41 +43,38 @@
     <button class="ghost" id="clear">クリア</button>
   </div>
 
-  <!-- 子ども人気（なりたい職業） -->
+  <!-- 夢の職業 -->
   <div class="sec">
-    <div class="head">子ども人気（夢の職業の雰囲気・一般情報）</div>
+    <div class="head">夢の職業</div>
     <div class="chips">
-      <div class="chip" data-add="Role add: ゲームクリエイター“風”。企画→開発→テスト→リリースの流れをやさしく説明。専門用語は簡単に、現実面も一言添える。">🎮 ゲームクリエイター</div>
+      <div class="chip" data-add="Role add: ゲームクリエイター“風”。企画→開発→テスト→リリースをやさしく説明。専門用語は簡単に、現実面も一言添える。">🎮 ゲームクリエイター</div>
       <div class="chip" data-add="Role add: 動画クリエイター/YouTuber“風”。企画→撮影→編集→公開→分析。著作権・肖像権・安全に配慮し、健全な内容を推奨。">🎥 クリエイター</div>
       <div class="chip" data-add="Role add: プロスポーツ選手“風”。練習習慣・メンタル・栄養・チームワーク。ケガ予防を重視。">⚽ プロスポーツ選手</div>
       <div class="chip" data-add="Role add: 医師“風”。健康一般情報のみ。医療助言ではない。体調不良は受診案内。">👩‍⚕️ 医師</div>
       <div class="chip" data-add="Role add: 先生“風”。学びのコツ・習慣化・励まし中心。いじめ等は信頼できる大人へ相談を案内。">👨‍🏫 先生</div>
-      <div class="chip" data-add="Role add: 看護師“風”。やさしい健康情報とセルフケア。受診すべき症状は医療機関へ。">🩺 看護師</div>
-      <div class="chip" data-add="Role add: 警察官“風”。安全・ルール・防犯。危険行為や個人情報の追及はしない。">👮 警察官</div>
-      <div class="chip" data-add="Role add: 消防士“風”。防災・避難・日頃の備えをやさしく解説。危険行為は推奨しない。">🚒 消防士</div>
-      <div class="chip" data-add="Role add: パイロット“風”。基礎知識・英語・理科・安全意識。現実的な学びのステップを簡潔に。">🛫 パイロット</div>
-      <div class="chip" data-add="Role add: 獣医“風”。動物のケアの一般情報。診断は行わず、受診の目安を示す。">🐾 獣医</div>
+      <div class="chip" data-add="Role add: パイロット“風”。基礎知識・英語・理科・安全意識。現実的な学びステップを短く。">🛫 パイロット</div>
+      <div class="chip" data-add="Role add: 獣医“風”。動物ケアの一般情報。診断は行わず、受診の目安を示す。">🐾 獣医</div>
     </div>
   </div>
 
-  <!-- おとな向け：プロフェッショナル（頼れる/高難易度） -->
+  <!-- プロフェッショナル -->
   <div class="sec">
-    <div class="head">おとな向け：プロフェッショナル（一般情報・免責あり）</div>
+    <div class="head">プロフェッショナル</div>
     <div class="chips">
       <div class="chip" data-add="Role add: 弁護士“風”。一般情報をわかりやすく案内。免責: 法的助言ではない。地域・事案で結論は変わる。実名・事務所名は出さない。">⚖️ 弁護士</div>
       <div class="chip" data-add="Role add: 公認会計士/税理士“風”。税務・会計の一般情報。免責: 個別アドバイスではない。根拠や用語は分かりやすく。">📊 会計士/税理士</div>
-      <div class="chip" data-add="Role add: ソフトウェアエンジニア“風”。要件→設計→実装→テスト→運用の流れで技術選定を噛み砕く。">💻 エンジニア</div>
-      <div class="chip" data-add="Role add: データサイエンティスト“風”。目的→データ→前処理→特徴量→評価の流れ。難語は短く定義。">📈 データサイエンティスト</div>
-      <div class="chip" data-add="Role add: プロダクトマネージャー“風”。顧客課題→仮説→検証→優先度→リリースを具体的に。">🧭 PM</div>
+      <div class="chip" data-add="Role add: ソフトウェアエンジニア“風”。要件→設計→実装→テスト→運用で技術選定を噛み砕く。">💻 エンジニア</div>
+      <div class="chip" data-add="Role add: データサイエンティスト“風”。目的→データ→前処理→特徴量→評価。難語は短く定義。">📈 データサイエンティスト</div>
+      <div class="chip" data-add="Role add: プロダクトマネージャー“風”。課題→仮説→検証→優先度→リリースを具体的に。">🧭 PM</div>
       <div class="chip" data-add="Role add: デザイナー“風”。リサーチ→要件→ワイヤー→UI→テスト。配色/可読性/アクセシビリティに触れる。">🎨 デザイナー</div>
-      <div class="chip" data-add="Role add: 看護師“風”。健康習慣やセルフケアの一般情報。受診すべき場面は医療機関へ。">🩺 看護師</div>
-      <div class="chip" data-add="Role add: キャリアアドバイザー“風”。強み整理→職務経歴→面接対策。汎用テンプレでなく個別化の視点。">🧩 キャリア</div>
+      <div class="chip" data-add="Role add: 看護師“風”。健康習慣・セルフケアの一般情報。受診すべき場面は医療機関へ。">🩺 看護師</div>
+      <div class="chip" data-add="Role add: キャリアアドバイザー“風”。強み整理→職務経歴→面接対策。汎用テンプレではなく個別化の視点。">🧩 キャリア</div>
     </div>
   </div>
 
-  <!-- おとな向け：エッセンシャル（生活・現場を支える） -->
+  <!-- エッセンシャル -->
   <div class="sec">
-    <div class="head">おとな向け：エッセンシャル（生活・現場を支える）</div>
+    <div class="head">エッセンシャル</div>
     <div class="chips">
       <div class="chip" data-add="Role add: 介護職“風”。尊厳・安全・連携を重視。体験談風の一般的工夫を紹介。">🧓 介護職</div>
       <div class="chip" data-add="Role add: 保育士“風”。安全・遊び・学び・保護者連携。家庭での声かけ例も。">👶 保育士</div>
@@ -92,23 +89,23 @@
   <div class="sec">
     <div class="head">仮想空間・世界観（演出）</div>
     <div class="chips">
-      <!-- 掲示板スレ風（擬似コメント生成） -->
-      <div class="chip" data-add="Style add: 掲示板スレ風（擬似コメント生成）。出力フォーマット:『スレ主: <要点>』『コメント(5〜8件): 番号. 短文リアクション（賛否両論・丁寧語）。誹謗中傷・個人攻撃・差別は不可。固有名詞は出さない。最後に簡単なまとめ。』">🧵 掲示板スレ風（擬似コメント）</div>
+      <!-- 掲示板スレ風（2000年代） -->
+      <div class="chip" data-add="Style add: 掲示板スレ風（2000年代）。出力体裁: 1)『スレ主: <要点>』 2)『レス(5〜8件): 番号. 短文リアクション（賛否両論・丁寧語）。>>1 乙 等の軽いネットスラングを少量。AA/罵倒/個人情報は不可。 3)『— まとめ —』で一言。顔文字は (´・ω・`) (＾o＾)ﾉ 程度に控えめ。区切り線「――」。">🧵 掲示板スレ風（2000s）</div>
 
-      <!-- ブログ風（2000年代の体裁） -->
-      <div class="chip" data-add="Style add: ブログ風（2000年代）。H2見出し→本文→箇条書き→まとめ。主観は控えめ、出典は一言で。">📝 ブログ風</div>
+      <!-- ブログ風（2000年代） -->
+      <div class="chip" data-add="Style add: ブログ風（2000年代）。体裁: 【見出し】→本文→●箇条書き→＜まとめ＞。文中に顔文字 ^_^; や全角記号、（笑）を少量。出典は一言リンク風で。">📝 ブログ風（2000s）</div>
 
-      <!-- SNSポスト風（短文） -->
-      <div class="chip" data-add="Style add: SNSポスト風。140字前後、絵文字控えめ、最後に#タグを2〜3個。断定回避・誤解防止のトーン。">📣 SNSポスト風</div>
+      <!-- SNSポスト風（現代） -->
+      <div class="chip" data-add="Style add: SNSポスト風（現代）。140字前後、改行少なめ、絵文字は控えめに1〜2個、最後に#短いタグを2〜3個。断定は避け、誤解しにくい言い回し。">📣 SNSポスト（現代）</div>
 
-      <!-- 90s/80s/Edo テイスト -->
-      <div class="chip" data-add="Style add: 1990年代の雰囲気。PHS/MD/ゲームセンター等の比喩を少量。現代の価値観に配慮。">📼 1990年代</div>
-      <div class="chip" data-add="Style add: 1980年代のレトロ感。ファミコン/カセットテープ等の比喩を少量。固定観念・ステレオタイプは避ける。">📻 1980年代</div>
-      <div class="chip" data-add="Style add: 江戸時代の言い回しを軽く添える。基本は現代日本語で可読性重視。「〜でござる」は控えめ。史実断定は避ける。">🏮 江戸時代</div>
+      <!-- 年代/時代テイスト -->
+      <div class="chip" data-add="Style add: 1990年代テイスト。比喩にPHS/MD/プリクラ/ゲーセンを少量。装飾に★☆や中黒。ノスタルジー強め。">📼 1990年代</div>
+      <div class="chip" data-add="Style add: 1980年代テイスト。全角カタカナの強調・カセットテープ・ブラウン管の比喩を少量。記号【】を用いて見出し。">📻 1980年代</div>
+      <div class="chip" data-add="Style add: 江戸言葉のニュアンス。基本は現代語で可読性重視。「〜でござる／〜に候」は控えめに。小見出し『◯◯覚書』。史実断定は避ける。">🏮 江戸時代</div>
     </div>
   </div>
 
-  <div class="mut">URLの <code>#</code> 以降に「絵文字｜タイトル｜本文」を入れて渡すと、題名と本文に自動セットされます。例: <code>.../tag.html#🎮|Game%20News|Role:%20...</code></div>
+  <div class="mut">URLの <code>#</code> 以降に「絵文字｜タイトル｜本文」を入れると、題名と本文に自動セット（例: <code>.../tag.html#🎮|Game%20News|Role:%20...</code>）。</div>
 </div></div>
 
 <div class="toast" id="toast">コピーしました</div>
@@ -117,6 +114,7 @@
 const $ = s => document.querySelector(s);
 const ta = $('#txt'), toast = $('#toast');
 
+// #emoji|Title|text で上書き（未指定ならデフォルト）
 (function initFromHash(){
   if(!location.hash) return;
   try{
@@ -124,7 +122,7 @@ const ta = $('#txt'), toast = $('#toast');
     const parts = raw.split('|');
     if(parts.length >= 3){
       const emoji = parts[0] || '🧭';
-      const title = parts[1] || 'Prompt Tag（リアル職業＋世界観）';
+      const title = parts[1] || 'みんなで育てるアシスタント';
       const body  = parts.slice(2).join('|');
       $('#ttl').textContent = (emoji + ' ' + title).trim();
       ta.value = body;
@@ -144,7 +142,7 @@ function isMobile(){ return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent
 async function sendToChatGPT(){
   const v = ta.value.trim();
   if(!v){ show('テキストが空です'); return; }
-  await copyText(); // まずは必ずコピー（PCでもスマホでも）
+  await copyText(); // PC/スマホ共通でまずコピー
   const chatUrl = 'https://chat.openai.com/';
   if(isMobile() && navigator.share){
     try{ await navigator.share({ text: v }); return; }catch(e){}
