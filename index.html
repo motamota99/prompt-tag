@@ -1,0 +1,164 @@
+<!doctype html><html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>みんなで育てるアシスタント</title>
+<style>
+  :root{--bg:#f4f6fb;--card:#fff;--txt:#222;--mut:#666;--chip:#eef1f7}
+  html,body{height:100%} body{margin:0;background:var(--bg);font-family:ui-sans-serif,system-ui,Segoe UI,Helvetica,Apple Color Emoji;color:var(--txt)}
+  .wrap{max-width:760px;margin:40px auto;padding:12px}
+  .card{background:var(--card);border-radius:16px;padding:24px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+  h1{font-size:22px;margin:0 0 6px;text-align:center}
+  .sub{color:var(--mut);font-size:13px;text-align:center;margin:6px 0 14px}
+  .notice{background:#fff7da;border:1px solid #f0d48a;color:#7a5b00;border-radius:12px;padding:10px 12px;font-size:12px;margin:10px 0}
+  .icon{font-size:44px;text-align:center}
+  textarea{width:100%;min-height:130px;border:1px solid #e3e6ef;border-radius:12px;padding:14px;font-size:15px;resize:vertical;background:#fff}
+  .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  button{flex:1 1 0;min-width:140px;border:0;border-radius:999px;padding:12px 16px;font-weight:600;background:#111;color:#fff;cursor:pointer}
+  .ghost{background:#e9ecf3;color:#222}
+  .sec{margin-top:18px}
+  .head{font-weight:800;margin:12px 4px 6px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{display:inline-flex;align-items:center;gap:.4em;background:var(--chip);padding:10px 14px;border-radius:999px;cursor:pointer;border:1px solid #e3e6ef}
+  .mut{color:var(--mut);font-size:12px;text-align:center;margin-top:10px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1}
+</style>
+</head><body>
+<div class="wrap"><div class="card">
+  <div class="icon">🧭</div>
+  <h1 id="ttl">みんなで育てるアシスタント</h1>
+  <div class="sub">①NFC/URLでキャラ設定（#付き）を読み込み → ②職業を追記 → ③（必要なら世界観も）→ ④「ChatGPTへ」</div>
+
+  <div class="notice">
+    🛈 リアル職業は<b>“役割風”で一般情報の案内</b>です（個別の助言ではありません）。<br>
+    実在の個人名・事務所名・病院名などの固有名詞は入力しないでください。<br>
+    世界観の「掲示板スレ風」は<b>擬似コメント演出</b>で、特定個人・団体とは無関係です。
+  </div>
+
+  <textarea id="txt" placeholder="ここに送る文章（プロンプト）が入ります"></textarea>
+  <div class="row">
+    <button id="send">ChatGPTへ</button>
+    <button class="ghost" id="copy">コピー</button>
+    <button class="ghost" id="openweb">Web版を開く</button>
+    <button class="ghost" id="clear">クリア</button>
+  </div>
+
+  <!-- 夢の職業 -->
+  <div class="sec">
+    <div class="head">夢の職業</div>
+    <div class="chips">
+      <div class="chip" data-add="Role add: ゲームクリエイター“風”。企画→開発→テスト→リリースをやさしく説明。専門用語は簡単に、現実面も一言添える。">🎮 ゲームクリエイター</div>
+      <div class="chip" data-add="Role add: 動画クリエイター/YouTuber“風”。企画→撮影→編集→公開→分析。著作権・肖像権・安全に配慮し、健全な内容を推奨。">🎥 クリエイター</div>
+      <div class="chip" data-add="Role add: プロスポーツ選手“風”。練習習慣・メンタル・栄養・チームワーク。ケガ予防を重視。">⚽ プロスポーツ選手</div>
+      <div class="chip" data-add="Role add: 医師“風”。健康一般情報のみ。医療助言ではない。体調不良は受診案内。">👩‍⚕️ 医師</div>
+      <div class="chip" data-add="Role add: 先生“風”。学びのコツ・習慣化・励まし中心。いじめ等は信頼できる大人へ相談を案内。">👨‍🏫 先生</div>
+      <div class="chip" data-add="Role add: パイロット“風”。基礎知識・英語・理科・安全意識。現実的な学びステップを短く。">🛫 パイロット</div>
+      <div class="chip" data-add="Role add: 獣医“風”。動物ケアの一般情報。診断は行わず、受診の目安を示す。">🐾 獣医</div>
+    </div>
+  </div>
+
+  <!-- プロフェッショナル -->
+  <div class="sec">
+    <div class="head">プロフェッショナル</div>
+    <div class="chips">
+      <div class="chip" data-add="Role add: 弁護士“風”。一般情報をわかりやすく案内。免責: 法的助言ではない。地域・事案で結論は変わる。実名・事務所名は出さない。">⚖️ 弁護士</div>
+      <div class="chip" data-add="Role add: 公認会計士/税理士“風”。税務・会計の一般情報。免責: 個別アドバイスではない。根拠や用語は分かりやすく。">📊 会計士/税理士</div>
+      <div class="chip" data-add="Role add: ソフトウェアエンジニア“風”。要件→設計→実装→テスト→運用で技術選定を噛み砕く。">💻 エンジニア</div>
+      <div class="chip" data-add="Role add: データサイエンティスト“風”。目的→データ→前処理→特徴量→評価。難語は短く定義。">📈 データサイエンティスト</div>
+      <div class="chip" data-add="Role add: プロダクトマネージャー“風”。課題→仮説→検証→優先度→リリースを具体的に。">🧭 PM</div>
+      <div class="chip" data-add="Role add: デザイナー“風”。リサーチ→要件→ワイヤー→UI→テスト。配色/可読性/アクセシビリティに触れる。">🎨 デザイナー</div>
+      <div class="chip" data-add="Role add: 看護師“風”。健康習慣・セルフケアの一般情報。受診すべき場面は医療機関へ。">🩺 看護師</div>
+      <div class="chip" data-add="Role add: キャリアアドバイザー“風”。強み整理→職務経歴→面接対策。汎用テンプレではなく個別化の視点。">🧩 キャリア</div>
+    </div>
+  </div>
+
+  <!-- エッセンシャル -->
+  <div class="sec">
+    <div class="head">エッセンシャル</div>
+    <div class="chips">
+      <div class="chip" data-add="Role add: 介護職“風”。尊厳・安全・連携を重視。体験談風の一般的工夫を紹介。">🧓 介護職</div>
+      <div class="chip" data-add="Role add: 保育士“風”。安全・遊び・学び・保護者連携。家庭での声かけ例も。">👶 保育士</div>
+      <div class="chip" data-add="Role add: 栄養士“風”。手早い献立・アレルギー配慮・バランス。一般情報にとどめる。">🥗 栄養士</div>
+      <div class="chip" data-add="Role add: 配送ドライバー“風”。安全運転・ルート最適化・体調管理の一般的Tips。">🚚 配送ドライバー</div>
+      <div class="chip" data-add="Role add: 清掃スタッフ“風”。衛生・効率・安全の段取りや工夫。">🧹 清掃スタッフ</div>
+      <div class="chip" data-add="Role add: 受付/カスタマーサポート“風”。丁寧な応対・要約・エスカレーション。">☎️ 受付/CS</div>
+    </div>
+  </div>
+
+  <!-- 仮想空間・世界観（演出） -->
+  <div class="sec">
+    <div class="head">仮想空間・世界観（演出）</div>
+    <div class="chips">
+      <!-- 掲示板スレ風（匿名AMA・2000s感） -->
+      <div class="chip" data-add="Style add: 掲示板スレ風（匿名AMA・2000年代）。口調=常体/落ち着き/短文2文まで。ことわざ/大袈裟比喩/固有名/具体日付NG。書式: 1)『スレ主: いま答えられる。順にどうぞ。』 2)『名無しさん: 質問？』 3)『スレ主: 方向だけ言う。○○が主流になる。』 形式で短い往復を5〜8本。たまに『>>番号』で一言補足。顔文字は (´・ω・`) (＾o＾)ﾉ を少量、AA/罵倒/個人情報は不可。区切りは――。">🧵 掲示板スレ風（2000s）</div>
+
+      <!-- SNSポスト風（現代TL AMA） -->
+      <div class="chip" data-add="Style add: SNSポスト風（現代TL AMA）。口調=常体/淡々やわらかめ。一投稿=1〜2文。固有名・具体日付NG。体裁: 固定ポスト『いま答えられる。質問どうぞ。』→『@handle 質問』→『投稿者 返答』をテンポ良く。1〜2件はリプで短く補足OK。絵文字は控えめに1〜2個、最後に#短いタグ2〜3個。">📣 SNSポスト（現代）</div>
+
+      <!-- ブログ風（記事＋コメント欄Q&A） -->
+      <div class="chip" data-add="Style add: ブログ風（記事＋コメント）。口調=常体/落ち着き/一〜二文。構成: 1.見出し『今日の短い返答』 2.リード『いま言える範囲だけはっきり書く。長くは話さない。』 3.セクション3〜6項（各1〜2文／比喩最小／“順番”を示す） 4.区切り『ここからはコメントに短く返す。』 以降コメント欄は一問一答/原則1〜2文。">📝 ブログ風（記事＋コメント）</div>
+
+      <!-- 年代/時代テイスト（書き方の演出を強化） -->
+      <div class="chip" data-add="Style add: 1990年代テイスト。比喩=PHS/MD/プリクラ/ゲーセンを少量。装飾=★☆や中黒・半角ｶﾅを控えめに。ノスタルジー強め、断定は避ける。">📼 1990年代</div>
+      <div class="chip" data-add="Style add: 1980年代テイスト。全角カタカナの強調・カセットテープ・ブラウン管の比喩を少量。見出しに【】を使い、語尾はやや硬め。">📻 1980年代</div>
+      <div class="chip" data-add="Style add: 江戸ことば風。基本は現代語で可読性重視、『〜でござる／〜に候』は控えめに。小見出し『◯◯覚書』、史実断定は避ける。">🏮 江戸時代</div>
+    </div>
+  </div>
+
+  <div class="mut">URLの <code>#</code> 以降に「絵文字｜タイトル｜本文」を入れると、題名と本文に自動セット（例: <code>.../tag.html#🎮|Game%20News|Role:%20...</code>）。</div>
+</div></div>
+
+<div class="toast" id="toast">コピーしました</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const ta = $('#txt'), toast = $('#toast');
+
+// #emoji|Title|text で上書き（未指定ならデフォルト）
+(function initFromHash(){
+  if(!location.hash) return;
+  try{
+    const raw = decodeURIComponent(location.hash.slice(1));
+    const parts = raw.split('|');
+    if(parts.length >= 3){
+      const emoji = parts[0] || '🧭';
+      const title = parts[1] || 'みんなで育てるアシスタント';
+      const body  = parts.slice(2).join('|');
+      $('#ttl').textContent = (emoji + ' ' + title).trim();
+      ta.value = body;
+    }
+  }catch(e){}
+})();
+
+function show(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1600); }
+async function copyText(){
+  const v = ta.value.trim();
+  if(!v){ show('テキストが空です'); return false; }
+  try{ await navigator.clipboard.writeText(v); show('コピーしました'); return true; }
+  catch(e){ show('コピーに失敗'); return false; }
+}
+function isMobile(){ return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); }
+
+async function sendToChatGPT(){
+  const v = ta.value.trim();
+  if(!v){ show('テキストが空です'); return; }
+  await copyText(); // PC/スマホ共通でまずコピー
+  const chatUrl = 'https://chat.openai.com/';
+  if(isMobile() && navigator.share){
+    try{ await navigator.share({ text: v }); return; }catch(e){}
+  }
+  window.open(chatUrl,'_blank');
+  show('ChatGPTを開きました。貼り付けてください');
+}
+function appendLine(s){
+  const cur = ta.value.trim();
+  ta.value = cur ? (cur + '\n\n' + s) : s;
+  ta.focus();
+}
+$('#send').onclick = sendToChatGPT;
+$('#copy').onclick = copyText;
+$('#openweb').onclick = ()=>window.open('https://chat.openai.com/','_blank');
+$('#clear').onclick = ()=>{ ta.value=''; show('クリアしました'); };
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>appendLine(c.dataset.add)));
+</script>
+</body></html>
