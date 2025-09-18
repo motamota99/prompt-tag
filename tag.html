@@ -3,200 +3,250 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>みんなで育てる職キャラタグ</title>
+<title>プロンプトタグ｜ライト / リアル</title>
 <meta name="theme-color" content="#ffffff">
 <style>
   :root{
     --bg:#f6f7fb; --card:#fff; --ink:#222; --muted:#6b7280;
-    --brand:#6c5ce7; --brand-2:#a78bfa; --ok:#10b981; --warn:#f59e0b;
-    --chip:#eef2ff; --chip-ink:#4338ca; --stroke:#e5e7eb;
+    --brand:#6c5ce7; --brand2:#a78bfa; --ok:#10b981; --stroke:#e5e7eb;
+    --chip:#eef2ff; --chip-ink:#4338ca;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
-  .container{max-width:760px;margin:0 auto;padding:20px 16px 96px}
-  .card{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;box-shadow:0 6px 24px rgba(0,0,0,.05)}
-  header{display:flex;align-items:center;gap:12px;margin:8px 0 12px}
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+  .wrap{max-width:780px;margin:0 auto;padding:18px 14px 96px}
+  .card{background:var(--card);border:1px solid var(--stroke);border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.05)}
+  header{display:flex;align-items:center;gap:12px;padding:14px 16px 8px;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--stroke);border-top-left-radius:16px;border-top-right-radius:16px;z-index:5}
   .logo{width:40px;height:40px;border-radius:12px;background:
     radial-gradient(120% 120% at 10% 10%,#f0f4ff 0,#e0e7ff 35%,#c7d2fe 60%,#a5b4fc 100%);
     display:grid;place-items:center;color:#4338ca;font-weight:700}
   h1{font-size:18px;line-height:1.2;margin:0}
   .note{color:var(--muted);font-size:12px;line-height:1.5}
-  .textarea{width:100%;min-height:150px;max-height:420px;padding:12px 12px;border:1px solid var(--stroke);
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 16px}
+  .seg button{appearance:none;border:1px solid var(--stroke);background:#fff;padding:12px;border-radius:12px;font-weight:700}
+  .seg button.active{border-color:transparent;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff}
+  .section{padding:12px 16px}
+  .textarea{width:100%;min-height:140px;max-height:420px;padding:12px;border:1px solid var(--stroke);
     border-radius:12px;font-size:15px;line-height:1.6;background:#fff;resize:vertical}
-  .section{margin:16px 0}
-  .section h2{font-size:14px;color:#111;margin:0 0 10px 4px}
-  .chips{display:flex;gap:8px;row-gap:8px;flex-wrap:wrap}
-  .chips.scroll{flex-wrap:nowrap;overflow:auto;padding-bottom:4px}
-  .chip{appearance:none;border:0;background:var(--chip);color:var(--chip-ink);padding:8px 10px;border-radius:999px;
-    font-size:13px;white-space:nowrap}
-  .chip:active{transform:translateY(1px)}
+  .chips{display:flex;gap:10px;row-gap:10px;flex-wrap:wrap}
+  .chips.scroll{flex-wrap:nowrap;overflow:auto;padding:2px 2px 8px;scroll-snap-type:x mandatory}
+  .chips.scroll .chip{scroll-snap-align:start}
+  .chip{appearance:none;border:0;background:var(--chip);color:var(--chip-ink);
+    padding:12px 14px;border-radius:18px;font-size:14px;white-space:nowrap}
+  .chip.big{font-size:15px;padding:14px 16px}
   .chip.outline{background:#fff;border:1px solid var(--stroke);color:#374151}
+  .chip:active{transform:translateY(1px)}
   details{border:1px solid var(--stroke);border-radius:12px;background:#fff}
   details+details{margin-top:10px}
-  summary{list-style:none;padding:10px 12px;font-weight:600;cursor:pointer}
+  summary{list-style:none;padding:12px 14px;font-weight:700;cursor:pointer}
   summary::-webkit-details-marker{display:none}
   .panel{padding:12px;border-top:1px solid var(--stroke)}
-  .actions{position:sticky;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(246,247,251,.0),rgba(246,247,251,1) 16px);
-    padding:12px 8px 14px;border-top:1px solid var(--stroke)}
+  .help{color:var(--muted);font-size:12px;margin-top:6px}
+  .actions{position:sticky;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(246,247,251,0),rgba(246,247,251,1) 18px);
+    padding:12px 10px;border-top:1px solid var(--stroke)}
   .row{display:flex;gap:8px}
-  .btn{flex:1;appearance:none;border:0;border-radius:12px;padding:12px 14px;font-weight:700;font-size:15px;color:#fff;background:#111}
-  .btn.brand{background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+  .btn{flex:1;appearance:none;border:0;border-radius:12px;padding:12px 14px;font-weight:800;font-size:15px;color:#fff;background:#111}
+  .btn.brand{background:linear-gradient(90deg,var(--brand),var(--brand2))}
   .btn.ghost{background:#fff;color:#111;border:1px solid var(--stroke)}
   .btn:active{transform:translateY(1px)}
-  .info{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin:8px 4px 0}
   .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 12px;border-radius:10px;
-    font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s}
+    font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:10}
   .toast.show{opacity:1}
-  @media (min-width:680px){
-    .chips.scroll{overflow:visible;flex-wrap:wrap}
-  }
+  .hidden{display:none}
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <header>
-        <div class="logo">PT</div>
-        <div>
-          <h1>みんなで育てる職キャラタグ</h1>
-          <div class="note">NFC/URLで開いて一発で“雰囲気まで”入るプリセット＋プロンプトボード。
-            <br>※現実寄り：音・道具・金額の3ディテールを入れて書くのがコツ。</div>
-        </div>
-      </header>
+<div class="wrap">
+  <div class="card">
+    <header>
+      <div class="logo">PT</div>
+      <div>
+        <h1>プロンプトタグ</h1>
+        <div class="note">上のタブでモードを選ぶ → ボタンを押す → コピー → ChatGPTを開く。<br>※ 現実寄りは「音・道具・金額」の3点セットを意識。</div>
+      </div>
+    </header>
 
-      <div class="section">
-        <textarea id="prompt" class="textarea" placeholder="ここに送る文章（プロンプト）が入ります"></textarea>
-        <div class="info">🔒 テキストは端末内のみ。ボタンで<strong>コピー → ChatGPTを開く</strong>の順に使ってください。</div>
+    <!-- モード切替 -->
+    <div class="seg" role="tablist" aria-label="モード切替">
+      <button id="tab-light" class="active" role="tab" aria-selected="true">ライト（かんたん）</button>
+      <button id="tab-pro" role="tab" aria-selected="false">リアル（本格）</button>
+    </div>
+
+    <!-- 共通入力 -->
+    <div class="section">
+      <label for="prompt" class="help">送信テキスト（タップした時だけキーボードが出ます）</label>
+      <textarea id="prompt" class="textarea" inputmode="text" enterkeyhint="done" placeholder="ここに送る文章（プロンプト）が入ります"></textarea>
+      <div class="help">🔒 テキストは端末内のみ。</div>
+    </div>
+
+    <!-- ライト：最小操作・大ボタン -->
+    <section id="mode-light" class="section" role="tabpanel">
+      <h2 style="margin:0 0 8px;font-size:14px">ワンタップで入れる（遊び感覚）</h2>
+      <div class="chips">
+        <button class="chip big" data-preset="あなたは元気な実況アナ。文末は短く歯切れよく。絵が浮かぶ言葉で、1〜2文で要点を実況する。">元気な実況</button>
+        <button class="chip big" data-preset="あなたはやさしい店員。丁寧だが長くしない。困っている人に“次の一手”を具体的に案内。">やさしい店員</button>
+        <button class="chip big" data-preset="あなたは占い師風。断言はせず“方向性”を短く示す。ラッキー“物・色・音”を1つずつ。">占い師風</button>
+        <button class="chip big" data-preset="あなたは学校の先生。例は身近なものを1つ。難しい言葉を使わず、2文以内で説明。">先生風</button>
+        <button class="chip big" data-preset="あなたは名古屋弁の12歳。語尾は軽く“〜だがね”程度。冗談は一粒まで。">名古屋弁12歳</button>
+        <button class="chip big" data-preset="掲示板スレっぽく短いやり取り。1レスは1〜2文。はじめに『今、答えられる。順にどうぞ。』を書き出す。">掲示板っぽく</button>
+      </div>
+      <div class="help">※ 難しい設定は不要。押す→少し直して→送るだけ。</div>
+    </section>
+
+    <!-- リアル：現実寄りプリセット -->
+    <section id="mode-pro" class="section hidden" role="tabpanel" aria-hidden="true">
+      <h2 style="margin:0 0 8px;font-size:14px">クイック（現実寄りの雰囲気）</h2>
+      <div class="chips scroll">
+        <button class="chip" data-preset="【方針】根拠ひと言(価格/普及/制度)。生活の実物3点(音・道具・金額)。不確実は明記。比喩少。【1990s】ポケベル/テレカ/ダイヤルアップ音。FAXとワープロ、プリクラの列。駅前看板ぎっしり。CD千円弱/おにぎり100円台。【掲示板】短レス1–2文＋根拠。開始：1：スレ立て乙。音と道具と金額で語れ。">掲示板×90年代</button>
+        <button class="chip" data-preset="【方針】根拠ひと言＋実物3点。比喩最小。【2000s前半】ADSL常時接続、ブログ/板文化。折りたたみ携帯と着うた。IC乗車券初期、ネット喫茶。牛丼280–380円。固定ツイ：現場の温度で語る。質問どうぞ。返信は1–2文＋根拠。">SNS×2000年代</button>
+        <button class="chip" data-preset="【方針】根拠ひと言＋実物3点。【1980s】ブラウン管/カセット/黒電話。国鉄→JR、硬券。商店街の蛍光灯、たばこの匂い。缶120円/ガソリン100円台半ば。見出し：今日の現場メモ。区切り：ここからコメント一問一答。">ブログ×80年代</button>
+        <button class="chip" data-preset="【方針】根拠は“目安”で限定、実物3点。【江戸】不定時法の鐘、長屋の井戸、行商の呼び声。蕎麦は一杯十数文の目安。言い回しは軽く“〜でござんす”。">ブログ×江戸</button>
       </div>
 
-      <!-- プリセット：上段は横スクロール（親指でサッ） -->
-      <div class="section">
-        <h2>クイック（初期プリセット）</h2>
-        <div class="chips scroll" id="quick">
-          <button class="chip" data-preset="【方針】根拠ひと言(価格/普及/制度)。生活の実物3点(音・道具・金額)。不確実は明記。比喩少。【1990s】ポケベル/テレカ/ダイヤルアップ音。FAXとワープロ、プリクラの列。駅前看板ぎっしり。CD1,000円弱/おにぎり100円台。【掲示板】短レス1–2文＋根拠。住人語彙は控えめ。開始：1：スレ立て乙。音と道具と金額で語れ。">掲示板×90年代</button>
-          <button class="chip" data-preset="【方針】根拠ひと言＋実物3点。比喩最小。【2000s前半】ADSL常時接続、ブログ/板文化。折りたたみ携帯と着うた。IC乗車券初期、ネット喫茶。牛丼280–380円。固定ツイ：現場の温度で語る。質問どうぞ（音・道具・金額の3点歓迎）。返信は1–2文＋根拠。">SNS×2000年代</button>
-          <button class="chip" data-preset="【方針】根拠ひと言＋実物3点。【1980s】ブラウン管/カセット/黒電話。国鉄→JR、硬券。商店街の蛍光灯、たばこの匂い。缶120円/ガソリン100円台半ば。見出し：今日の現場メモ。小見出し例：朝の店音／切符／価格。区切り：ここからコメント一問一答。">ブログ×80年代</button>
-          <button class="chip" data-preset="【方針】根拠は“目安”で限定、実物3点。【江戸】不定時法の鐘、長屋の井戸、行商の呼び声。蕎麦は一杯十数文の目安。徒歩/舟運、油皿の匂い。言い回しは軽めに“〜でござんす”。見出し：町日記。区切り：これより問答いたそう。">ブログ×江戸</button>
-          <button class="chip" data-preset="【方針】根拠ひと言＋実物3点。【弁護士】面談室のティッシュとICレコーダー、コピー機連打、製本テープのきしみ。手順：受任→委任状/着手金→証拠→交渉/訴訟→和解/判決→清算。費用は目安で限定。【掲示板】1–2文＋根拠。開始：1：スレ立て乙。順番と金額感で頼む。">弁護士（掲示板）</button>
-          <button class="chip" data-preset="【方針】根拠ひと言＋実物3点。【看護師】ナースステーションのアラーム、手指消毒のアルコール臭、夜勤の巡視。手順：バイタル→投薬ダブルチェック→記録。家族説明の時間確保。SNS運用：固定ツイ『音/道具/金額で現場を描く。質問どうぞ』、返信1–2文＋根拠。">看護師（SNS）</button>
-        </div>
-      </div>
-
-      <!-- 折りたたみカテゴリ -->
-      <details class="section" open>
-        <summary>時代×媒体プリセット</summary>
-        <div class="panel">
-          <div class="chips" id="era">
-            <button class="chip outline" data-preset="【掲示板】90s：音/道具/金額で描く。ポケベル、テレカ、ダイヤルアップ音…短レスで根拠も一言。">90s 掲示板</button>
-            <button class="chip outline" data-preset="【SNS】00s前半：ADSL、着うた、ブログ文化。固定ツイ＆1–2文返信。">00s SNS</button>
-            <button class="chip outline" data-preset="【ブログ】80s：ブラウン管、カセット、硬券。小見出し＋短文本文→Q&A。">80s ブログ</button>
-            <button class="chip outline" data-preset="【ブログ】江戸：鐘、井戸、舟運。言い回し軽候。十数文を“目安”として扱う。">江戸 ブログ</button>
-          </div>
-        </div>
-      </details>
-
-      <details class="section" open>
+      <details open style="margin-top:12px">
         <summary>職業プリセット（プロフェッショナル）</summary>
         <div class="panel">
-          <div class="chips" id="jobs">
-            <button class="chip outline" data-preset="【弁護士】面談室の匂いと紙の音。受任→証拠→交渉/訴訟→和解/判決→清算。費用は“目安”で控えめ表現。掲示板体裁で1–2文＋根拠。">弁護士</button>
-            <button class="chip outline" data-preset="【看護師】ナースコール/消毒臭/夜勤巡視。バイタル→投薬ダブルチェック→記録。SNS形式で固定ツイ＋短返信。">看護師</button>
+          <div class="chips">
+            <button class="chip outline" data-preset="【弁護士】面談室のティッシュとICレコーダー、コピー機連打、製本テープのきしみ。手順：受任→委任状/着手金→証拠→交渉/訴訟→和解/判決→清算。費用は目安で限定。掲示板体裁で1–2文＋根拠。">弁護士</button>
+            <button class="chip outline" data-preset="【看護師】ナースコール、消毒の匂い、夜勤巡視。バイタル→投薬ダブルチェック→記録。SNS形式：固定ツイ『音/道具/金額で現場を描く。質問どうぞ』＋短返信。">看護師</button>
             <button class="chip outline" data-preset="【建築現場監督】朝礼の拡声器、打設の振動、墨出しのチャコ跡。段取り：近隣→安全→工程→品質→原価。写真/書類が証跡。">建築監督</button>
             <button class="chip outline" data-preset="【コンビニ店長】朝刊の束、ホットスナックの油音、POSのピッ。シフト→検品→前出し→日配廃棄→締め。価格帯は地域差あり。">コンビニ店長</button>
           </div>
         </div>
       </details>
+    </section>
 
-      <!-- アクション -->
-      <div class="actions">
-        <div class="row" style="margin-bottom:8px">
-          <button class="btn brand" id="toGPT">ChatGPTを開く（自動コピー）</button>
-          <button class="btn ghost" id="copyBtn">コピー</button>
-        </div>
-        <div class="row">
-          <button class="btn" style="background:var(--ok)" id="saveURL">URLに埋め込む（共有/NFC用）</button>
-          <button class="btn ghost" id="clearBtn">クリア</button>
-        </div>
-        <div class="info">🔗 生成URLは <code>#</code> 以降にテキストを埋め込みます。NFCタグのURLとしてそのまま書き込めます。</div>
+    <!-- アクション（共通） -->
+    <div class="actions">
+      <div class="row" style="margin-bottom:8px">
+        <button class="btn brand" id="toGPT">ChatGPTを開く（自動コピー）</button>
+        <button class="btn ghost" id="copyBtn">コピー</button>
       </div>
+      <div class="row">
+        <button class="btn" style="background:var(--ok)" id="saveURL">URLに埋め込む（共有/NFC用）</button>
+        <button class="btn ghost" id="clearBtn">クリア</button>
+      </div>
+      <div class="help" style="padding:0 4px">🔗 生成URLは <code>#</code> 以降にテキストを格納。NFCタグのURLとしてそのまま書き込めます。</div>
     </div>
   </div>
+</div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite">copied</div>
+<div id="toast" class="toast" role="status" aria-live="polite">copied</div>
 
 <script>
-  // -------------- 小ユーティリティ --------------
-  const $ = (q)=>document.querySelector(q);
-  const $$ = (q)=>Array.from(document.querySelectorAll(q));
-  const promptBox = $('#prompt');
-  const toast = $('#toast');
+  // 要素
+  const promptBox = document.getElementById('prompt');
+  const tabLight  = document.getElementById('tab-light');
+  const tabPro    = document.getElementById('tab-pro');
+  const modeLight = document.getElementById('mode-light');
+  const modePro   = document.getElementById('mode-pro');
+  const toast     = document.getElementById('toast');
 
-  function showToast(msg){ toast.textContent = msg; toast.classList.add('show');
-    setTimeout(()=>toast.classList.remove('show'),1400); }
+  // モード切替（タップでキーボードを出さない配慮：textareaへは触らない）
+  function setMode(mode){
+    const isLight = mode==='light';
+    tabLight.classList.toggle('active', isLight);
+    tabPro.classList.toggle('active', !isLight);
+    tabLight.setAttribute('aria-selected', isLight?'true':'false');
+    tabPro.setAttribute('aria-selected', !isLight?'true':'false');
+    modeLight.classList.toggle('hidden', !isLight);
+    modePro.classList.toggle('hidden', isLight);
+    modePro.setAttribute('aria-hidden', isLight?'true':'false');
+    localStorage.setItem('pt_mode', mode);
+  }
+  tabLight.addEventListener('click', ()=>setMode('light'));
+  tabPro.addEventListener('click', ()=>setMode('pro'));
+  setMode(localStorage.getItem('pt_mode')||'light');
 
-  async function copy(text){
-    try{ await navigator.clipboard.writeText(text); return true; }
-    catch(e){ // フォールバック
-      const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); ta.remove(); return true;
+  // トースト
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),1400);
+  }
+
+  // プリセット挿入（※ フォーカスしない＝キーボード出さない）
+  function insertPreset(text){
+    const start = document.activeElement;
+    promptBox.value = (text||'').trim();
+    // 触らない：promptBox.focus(); を呼ばない
+    if (start && typeof start.blur === 'function' && start !== promptBox) {
+      // 直前に押したボタンのフォーカスリングも消す（連打しやすく）
+      start.blur();
+    }
+    showToast('プリセットを挿入しました');
+  }
+  document.querySelectorAll('.chip').forEach(b=>{
+    b.addEventListener('click',()=>insertPreset(b.dataset.preset||b.textContent));
+  });
+
+  // クリップボード（可視textareaに触れず、画面外の一時要素で処理）
+  async function doCopy(text){
+    // 方式A：一時テキストエリア + execCommand（多環境で安定）
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly','');
+      ta.style.position='fixed';
+      ta.style.opacity='0';
+      ta.style.pointerEvents='none';
+      ta.style.top='-2000px';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      ta.setSelectionRange(0, text.length);
+      const ok = document.execCommand && document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) return true;
+    }catch(e){/* fallthrough */ }
+
+    // 方式B：Clipboard API（許可があれば走る）
+    try{
+      await navigator.clipboard.writeText(text);
+      return true;
+    }catch(e){
+      return false;
     }
   }
 
-  // -------------- プリセット挿入 --------------
-  function insertPreset(str){
-    // 追記ではなく置換が基本。連打で溜まりにくい運用。
-    promptBox.value = str.trim();
-    promptBox.focus();
-    showToast('プリセットを挿入しました');
-  }
-  $$('.chip').forEach(b=>b.addEventListener('click',()=>insertPreset(b.dataset.preset || b.textContent)));
+  // コピー
+  document.getElementById('copyBtn').addEventListener('click', async ()=>{
+    const ok = await doCopy(promptBox.value);
+    showToast(ok?'コピーしました':'コピーに失敗。長押し→ペーストしてください');
+  });
 
-  // -------------- ChatGPTを開く（コピー→新規タブ） --------------
-  $('#toGPT').addEventListener('click', async ()=>{
+  // ChatGPTを開く（コピー→新規タブ）。可視textareaは触らない＝キーボード出ない
+  document.getElementById('toGPT').addEventListener('click', async ()=>{
     const txt = promptBox.value.trim();
     if(!txt){ showToast('テキストが空です'); return; }
-    await copy(txt);
-    showToast('コピー完了。ChatGPTで貼り付けてください');
-    // ChatGPT公式UI（ログイン必須）。開くだけ＆ペースト案内。
+    const ok = await doCopy(txt);
+    showToast(ok ? 'コピー完了。ChatGPTで貼り付けてください' : 'コピーに失敗。手動で長押し→ペーストしてください');
     window.open('https://chat.openai.com/','_blank','noopener');
   });
 
-  // -------------- 単純コピー --------------
-  $('#copyBtn').addEventListener('click', async ()=>{
-    const ok = await copy(promptBox.value);
-    showToast(ok?'コピーしました':'コピーに失敗');
-  });
-
-  // -------------- URLに埋め込み（ハッシュ圧縮） --------------
-  function encodeToHash(s){
-    // URI圧縮 → atob等不要の安全な短縮
-    return encodeURIComponent(s).replace(/%20/g,'+');
-  }
-  function decodeFromHash(h){
-    try{ return decodeURIComponent(h.replace(/\+/g,'%20')); }
-    catch(e){ return h; }
-  }
-  $('#saveURL').addEventListener('click', ()=>{
+  // URLに埋め込み（#以降）
+  function encHash(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+  function decHash(h){ try{ return decodeURIComponent(h.replace(/\+/g,'%20')); }catch(e){ return h; } }
+  document.getElementById('saveURL').addEventListener('click', async ()=>{
     const txt = promptBox.value.trim();
     if(!txt){ showToast('テキストが空です'); return; }
-    const url = location.origin + location.pathname + '#' + encodeToHash(txt);
-    history.replaceState(null,'',url);
-    copy(url);
-    showToast('URLを生成してコピーしました');
+    const url = location.origin + location.pathname + '#' + encHash(txt);
+    history.replaceState(null,'', url);
+    const ok = await doCopy(url);
+    showToast(ok ? 'URLをコピーしました' : 'URLのコピーに失敗。手動で選択してください');
   });
 
-  // -------------- クリア --------------
-  $('#clearBtn').addEventListener('click', ()=>{
+  // クリア
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
     promptBox.value = '';
     history.replaceState(null,'', location.origin + location.pathname);
     showToast('クリアしました');
   });
 
-  // -------------- ハッシュから自動読込（NFC/共有で着地した時） --------------
+  // ハッシュから読み込み（共有/NFC着地）
   (function bootFromHash(){
     const h = location.hash.startsWith('#') ? location.hash.slice(1) : '';
     if(!h) return;
-    const txt = decodeFromHash(h);
+    const txt = decHash(h);
     if(txt){ promptBox.value = txt; showToast('URLから読み込みました'); }
   })();
 </script>
