@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>プロンプトタグ｜ライト / リアル</title>
+<title>プロンプトタグ｜ライト / リアル（重厚プリセット）</title>
 <meta name="theme-color" content="#ffffff">
 <style>
   :root{
@@ -60,7 +60,7 @@
   summary{list-style:none;padding:12px 14px;font-weight:700;cursor:pointer}
   summary::-webkit-details-marker{display:none}
   .panel{padding:12px;border-top:1px solid var(--stroke)}
-  /* アクションDock */
+  /* Dock */
   .dock{position:fixed;left:0;right:0;bottom:0;padding:14px 12px;background:linear-gradient(180deg,rgba(0,0,0,0),var(--bg) 14px)}
   .dock .card{box-shadow:var(--dock-shadow);border-radius:16px;padding:10px 10px 12px}
   .dock-title{font-size:12px;color:var(--muted);padding:0 6px 6px;border-bottom:1px solid var(--divider);margin-bottom:10px}
@@ -83,9 +83,7 @@
   <div class="card">
     <header>
       <div class="logo">PT</div>
-      <div>
-        <h1>プロンプトタグ</h1>
-      </div>
+      <div><h1>プロンプトタグ</h1></div>
     </header>
 
     <!-- タブ -->
@@ -94,7 +92,7 @@
       <button id="tab-pro" role="tab" aria-selected="false">リアル</button>
     </div>
 
-    <!-- バナー（説明は1行だけ） -->
+    <!-- バナー -->
     <p id="banner" class="banner">ライト：明るくシンプル。ボタン→少し直す→送る。</p>
 
     <!-- 入力 -->
@@ -102,7 +100,7 @@
       <p class="title">テキスト</p>
       <div class="box">
         <textarea id="prompt" class="textarea" inputmode="text" enterkeyhint="done" placeholder="ここに送る文章（プロンプト）"></textarea>
-        <div class="hint">🔒 端末内のみ保存。NFCならURLに埋め込めます。</div>
+        <div class="hint">🔒 端末内のみ保存。長文はURLに埋め込まないのが安定（共有 or コピーがおすすめ）。</div>
       </div>
     </div>
 
@@ -111,38 +109,40 @@
       <p class="title">クイック（遊び感覚）</p>
       <div class="box" style="padding:12px">
         <div class="chips">
-          <button class="chip big" data-preset="あなたは元気な実況アナ。文末は短く歯切れよく。絵が浮かぶ言葉で、1〜2文で要点を実況する。">🎙️ 元気な実況</button>
-          <button class="chip big" data-preset="あなたはやさしい店員。丁寧だが長くしない。困っている人に“次の一手”を具体的に案内。">🛒 やさしい店員</button>
-          <button class="chip big" data-preset="あなたは占い師風。断言はせず“方向性”を短く示す。ラッキー“物・色・音”を1つずつ。">🔮 占い師風</button>
-          <button class="chip big" data-preset="あなたは学校の先生。例は身近なものを1つ。難しい言葉を使わず、2文以内で説明。">🏫 先生風</button>
-          <button class="chip big" data-preset="あなたは名古屋弁の12歳。語尾は軽く“〜だがね”程度。冗談は一粒まで。">🍤 名古屋弁12歳</button>
-          <button class="chip big" data-preset="掲示板スレっぽく短いやり取り。1レスは1〜2文。はじめに『今、答えられる。順にどうぞ。』を書き出す。">🧵 掲示板っぽく</button>
+          <button class="chip big" data-key="lite_genki">🎙️ 元気な実況</button>
+          <button class="chip big" data-key="lite_shop">🛒 やさしい店員</button>
+          <button class="chip big" data-key="lite_uranai">🔮 占い師風</button>
+          <button class="chip big" data-key="lite_teacher">🏫 先生風</button>
+          <button class="chip big" data-key="lite_nagoya">🍤 名古屋弁12歳</button>
+          <button class="chip big" data-key="lite_bbs">🧵 掲示板っぽく</button>
         </div>
       </div>
     </section>
 
     <div class="divider" aria-hidden="true"></div>
 
-    <!-- リアル -->
+    <!-- リアル（重厚プリセット） -->
     <section id="mode-pro" class="section hidden" role="tabpanel" aria-hidden="true">
-      <p class="title">クイック（現実寄り）</p>
+      <p class="title">重厚プリセット（世界観ガチ作り）</p>
       <div class="box" style="padding:12px">
         <div class="chips scroll">
-          <button class="chip" data-preset="【方針】根拠ひと言(価格/普及/制度)。生活の実物3点(音・道具・金額)。不確実は明記。【1990s】ポケベル/テレカ/ダイヤルアップ音/プリクラ。CD千円弱/おにぎり100円台。【掲示板】短レス1–2文＋根拠。開始：1：スレ立て乙。">90s × 掲示板</button>
-          <button class="chip" data-preset="【方針】根拠＋実物3点。【2000s前半】ADSL/ブログ/着うた/IC乗車券初期/ネット喫茶/牛丼280–380円。【SNS】固定ポスト→短返信。">00s × SNS</button>
-          <button class="chip" data-preset="【方針】根拠＋実物3点。【1980s】ブラウン管/カセット/硬券/蛍光灯/たばこ。缶120円/ガソリン100円台半ば。【ブログ】見出し→短項→Q&A。">80s × ブログ</button>
-          <button class="chip" data-preset="【方針】“目安”で限定＋実物3点。【江戸】鐘/井戸/行商/蕎麦十数文/舟運。【ブログ】町日記→問答。">江戸 × ブログ</button>
+          <button class="chip" data-key="pro_90s_bbs">90s × 掲示板（濃）</button>
+          <button class="chip" data-key="pro_80s_blog">80s × ブログ記事＋コメント（濃）</button>
+          <button class="chip" data-key="pro_00s_social">00s × SNSタイムラインAMA（濃）</button>
+          <button class="chip" data-key="pro_edo_diary">江戸 × 町日記＋問答（濃）</button>
+          <button class="chip" data-key="pro_trpg_tokyo">TRPG × 現代東京サンドボックス</button>
+          <button class="chip" data-key="pro_img_friendly">画像生成フレンドリー（無料配慮）</button>
         </div>
       </div>
 
       <details class="section" open>
-        <summary>職業プリセット（プロ）</summary>
+        <summary>職業（プロフェッショナル強化）</summary>
         <div class="panel">
           <div class="chips">
-            <button class="chip outline" data-preset="【弁護士】面談室のティッシュ/ICレコーダー/コピー連打/製本テープのきしみ。受任→委任状→証拠→交渉/訴訟→和解/判決→清算。費用は目安で限定。掲示板体裁で1–2文＋根拠。">⚖️ 弁護士</button>
-            <button class="chip outline" data-preset="【看護師】ナースコール/消毒臭/夜勤巡視。バイタル→投薬ダブルチェック→記録。SNS形式：固定ツイ『音/道具/金額で現場を描く』＋短返信。">🩺 看護師</button>
-            <button class="chip outline" data-preset="【建築監督】朝礼の拡声器/打設の振動/墨出しのチャコ跡。段取り：近隣→安全→工程→品質→原価。写真/書類が証跡。">🏗️ 建築監督</button>
-            <button class="chip outline" data-preset="【コンビニ店長】朝刊の束/フライヤーの油音/POSのピッ。検品→前出し→日配廃棄→締め。価格帯は地域差。">🏪 コンビニ店長</button>
+            <button class="chip outline" data-key="job_lawyer">⚖️ 弁護士（濃）</button>
+            <button class="chip outline" data-key="job_nurse">🩺 看護師（濃）</button>
+            <button class="chip outline" data-key="job_site_mgr">🏗️ 建築現場監督（濃）</button>
+            <button class="chip outline" data-key="job_conveni">🏪 コンビニ店長（濃）</button>
           </div>
         </div>
       </details>
@@ -150,7 +150,7 @@
   </div>
 </div>
 
-<!-- アクション Dock（常に画面下。カード＋影＋太ボーダーで“境界”を明確に） -->
+<!-- Dock -->
 <div class="dock" aria-label="アクション">
   <div class="card">
     <div class="dock-title">アクション</div>
@@ -167,7 +167,7 @@
             <button class="btn ghost" id="saveURL">URLを作る</button>
             <button class="btn ghost" id="clearBtn">クリア</button>
           </div>
-          <p class="hint" style="margin-top:8px">URLの # 以降にテキストを埋め込みます。NFCタグにそのURLを書き込めます。</p>
+          <p class="hint" style="margin-top:8px">URLの # 以降にテキストを埋め込みます。長文は共有/コピーのほうが安全です。</p>
         </div>
       </details>
     </div>
@@ -176,7 +176,39 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite">copied</div>
 
+<!-- ★ プリセットJSON（長文はここに定義） -->
+<script id="presetsJSON" type="application/json">
+{
+  "lite_genki":"あなたは元気な実況アナ。文末は短く歯切れよく。絵が浮かぶ言葉で、1〜2文で要点を実況する。",
+  "lite_shop":"あなたはやさしい店員。丁寧だが長くしない。困っている人に“次の一手”を具体的に案内。",
+  "lite_uranai":"あなたは占い師風。断言はせず“方向性”を短く示す。ラッキー“物・色・音”を1つずつ。",
+  "lite_teacher":"あなたは学校の先生。例は身近なものを1つ。難しい言葉を使わず、2文以内で説明。",
+  "lite_nagoya":"あなたは名古屋弁の12歳。語尾は軽く“〜だがね”。冗談は一粒まで。",
+  "lite_bbs":"掲示板スレっぽく短いやり取り。1レスは1〜2文。はじめに『今、答えられる。順にどうぞ。』を書き出す。",
+
+  "pro_90s_bbs":"【役割】90年代日本の匿名掲示板（草創期）の住人として、生活現場を“音・道具・金額・時間スケール”で語る。\\n【板の空気】sage推奨/半角ｶﾅは控えめ/内輪ネタ少なめ/AAは行頭1回まで。句読点はやや少なめ。\\n【書式】\\n1: スレ主：『街の“音”と“道具”で当時を語れ。嘘は短く露呈する。』\\n以降、短レス往復。名無しの質問→住人の返答。各投稿は1〜2文＋根拠一言。\\n【表現ルール】\\n- 具体は“誰でも辿れる指標”で：価格目安（CDシングル1000円弱/おにぎり100円台/タクシー初乗り600〜700円台）、所要時間、普及率のニュアンス。\\n- 生活ディテールを最低3点：①音（ダイヤルアップ接続音/ポケベルの数字入力/駅改札の打刻）②道具（テレカ/プリクラ/ワープロ/フロッピー）③匂い・質感（喫煙可オフィスの紙の匂い/雨のアーケードの湿気）。\\n- 固有名・日付は濫用しない。曖昧な所は『目安』『〜頃』。比喩は最小。\\n- 語尾は断定か短い限定（『〜だ』『目安〜』）。長講釈禁止。\\n【トピック例】物価/電気代/住まい/就職/家電/通学/ゲーム/テレビ/交通/決済/災害備え。\\n【開始】\\n1：スレ立て乙。街の音と道具と金額でやれ。\\n【出力例の並び】\\n名無しさん：給料と家賃、今と比べどう？\\n住人　　：相場だけ言う。ワンルームは駅次第。紙の募集で探す。>>2 家賃は面積と路線、初期費用が重い。\\n（以降、短やり取りを10往復程度。各レスに“音/道具/金額”を1つは混ぜる。）",
+
+  "pro_80s_blog":"【役割】1980年代日本の“短い記事＋コメント欄Q&A”。昭和末の街の空気を具体で描く。\\n【記事骨格】\\n1. 見出し：80s街の今日メモ（要点だけ）\\n2. リード：長くは書かない。音/道具/金額で生活を置く。\\n3. セクション×4〜6（各2文）：\\n   - 家電と居間：ブラウン管の静電気、ビデオの唸り。\\n   - 切符と移動：硬券/改札鋏の音。国鉄→JRの揺れ。\\n   - 商店街：蛍光灯の白、たばこの匂い、シャッターの音。\\n   - 価格感：缶120円前後、ガソリン100円台半ば、定食600円台。\\n   - 情報の入手：新聞/雑誌/貼り紙。電話と手書きメモ。\\n4. 区切り文：ここからコメントに短く返す。\\n【Q&Aルール】一問一答/1〜2文/必要なら順番（例：窓→すき間→除湿）。固有名は控えめ、日付は目安。\\n【文体】常体。比喩は控えめ。根拠ひと言を添える（価格/普及/制度）。",
+
+  "pro_00s_social":"【役割】2000年代前半のSNSタイムライン（ブログ/初期SNS/ミニブログ）でAMA。\\n【固定ポスト】常時表示：『現場の温度で答える。音・道具・金額の3点で質問を。』\\n【時代小物】ADSL常時接続/折りたたみ携帯の着うた/ネット喫茶/IC乗車券普及初期/牛丼280–380円。\\n【回答方針】1投稿=1〜2文＋根拠一言。断言と限定を使い分け。不確実は『目安』明記。\\n【スレッド運用】質問→短返信/必要なら1〜2件だけ追補。比喩は最小。固有名・日付は避ける。",
+
+  "pro_edo_diary":"【役割】江戸町人の“町日記＋問答”。不定時法、町の音、銭の感覚で描く。\\n【記事】\\n- 見出し：町日記（本日）\\n- 導入：長くは綴らぬ。音・道具・銭で置く。\\n- 小見出し×4（各2文）：\\n  ・朝の鐘：明六ツ。井戸端の声、行商の呼び声。\\n  ・銭勘定：蕎麦は一杯十数文の目安。紙子の値は季。\\n  ・移動：徒歩/舟運、橋の賑わい。\\n  ・暮らし：長屋の共同便所、油皿の匂い。\\n- 書き止め：これより問答いたそう。\\n【言い回し】候文までは不要。『〜でござんす』『〜にてぇ』を軽く。\\n【問答】一問一答/1〜2文/不確実は『ここは控える』。",
+
+  "pro_trpg_tokyo":"【目的】仮想“現代東京”を継続的に積み上げるTRPG/シム運用。\\n【役割】あなたはゲームマスター兼シミュレーションエンジン。ユーザーはプレイヤー。\\n【ループ】\\n1) 状況ログ要約（3行）：場所/時間帯/人の流れ/天候・音・匂い。\\n2) 世界状態の更新：NPC/店舗/交通/価格/イベントのキュー。\\n3) 選択肢3〜5個：実用と遊びを混ぜる（例：駅前調査/河川敷/商店街ヒアリング/行政窓口）。\\n4) プレイヤーの自由入力を受理→裁定→結果ログ（音・道具・金額を必ず1つ入れる）。\\n【制約】固有名や個人情報は避ける。数字は目安（価格帯/混雑度/所要時間）。\\n【初期化】日時/駅名風の架空地名/天気/イベント1つから開始。",
+
+  "pro_img_friendly":"【画像生成フレンドリー・無料配慮】\\n- まず“テキストのみ”でディテールを固める：構図/被写体/衣装/小物/光源/レンズ/時代の痕跡（看板・料金表）/配色。\\n- 有料画像生成が使える場合のみ、最後に“1枚分の英語プロンプト”を添える（日本語も併記）。\\n- 無料勢には『画像の代替として、30〜60語の視覚描写パラグラフ』を出す。\\n- どちらも“音・道具・金額・文字（看板/貼り紙）”のうち3要素以上を必ず入れる。",
+
+  "job_lawyer":"【弁護士（濃）】\\n- 現場音：コピー連打/ホチキスの金属音/製本テープのきしみ/期日呼出のアナウンス。\\n- 道具：ICレコーダー/時系列要約表/証拠ラベル/赤黒ペン/糊付き付箋。\\n- 手順：受任→委任状/着手金→証拠収集→交渉/訴訟→和解/判決→清算。\\n- 実務コツ：主張は“事実→評価→結論”の順。数字は目安で限定。\\n- 返答スタイル：掲示板体裁/1〜2文＋根拠。長講釈禁止。",
+  "job_nurse":"【看護師（濃）】\\n- 音と匂い：ナースコール/モニタのビープ/手指消毒のアルコール臭。\\n- 手順：バイタル→投薬ダブルチェック→記録。夜勤は巡視/急変対応。\\n- ディテール：巡回ワゴン/点滴の滴数/家族説明の時間確保。\\n- 返答：SNS体裁/1〜2文＋根拠。冗長禁止。",
+  "job_site_mgr":"【建築現場監督（濃）】\\n- 音：朝礼の拡声器/打設の振動/バックホウの警告音。\\n- 道具：墨出し/レーザー/出来形写真/安全書類。\\n- 段取り：近隣→安全→工程→品質→原価。\\n- 返答：短文＋順番提示（崩さない）。",
+  "job_conveni":"【コンビニ店長（濃）】\\n- 音と匂い：フライヤーの油音/深夜納品台車/POSのピッ。\\n- ルーチン：検品→前出し→日配廃棄→締め。\\n- 実務：マルチ端末/公共料金/宅配受付。\\n- 返答：短文＋価格感は地域差を明記。"
+}
+</script>
+
+<div id="toast" class="toast" role="status" aria-live="polite">copied</div>
+
 <script>
+  // ---------- 基本UI ----------
   const body = document.body;
   const promptBox = document.getElementById('prompt');
   const tabLite  = document.getElementById('tab-lite');
@@ -198,7 +230,7 @@
     modePro.setAttribute('aria-hidden', isLite?'true':'false');
     banner.textContent = isLite
       ? 'ライト：明るくシンプル。ボタン→少し直す→送る。'
-      : 'リアル：黒基調。現実寄りプリセットで“音・道具・金額”を入れて書く。';
+      : 'リアル：黒基調。長文プリセットで“音・道具・金額”の3点を入れて世界観を固める。';
     localStorage.setItem('pt_mode', mode);
   }
   tabLite.addEventListener('click', ()=>setMode('lite'));
@@ -207,23 +239,33 @@
 
   function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1400); }
 
-  // プリセット挿入（フォーカスしない→キーボード出ない）
+  // ---------- プリセット読込（JSON） ----------
+  const PRESETS = JSON.parse(document.getElementById('presetsJSON').textContent);
+
+  // すべての .chip に data-key があれば JSON から注入
+  document.querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const key = btn.dataset.key;
+      const text = key ? PRESETS[key] : (btn.dataset.preset||btn.textContent);
+      insertPreset(text);
+    });
+  });
+
+  // キーボードを出さない挙動
   function insertPreset(text){
     const start = document.activeElement;
     promptBox.value = (text||'').trim();
     if (start && typeof start.blur==='function' && start!==promptBox) start.blur();
     showToast('プリセットを挿入しました');
   }
-  document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>insertPreset(b.dataset.preset||b.textContent)));
 
-  // 共有（ChatGPTアプリへ渡す本命）
+  // ---------- 共有/コピー系 ----------
   async function shareToApp(text){
     if (navigator.share){
       try{ await navigator.share({ text }); return true; }catch(e){}
     }
     return false;
   }
-  // 画面外コピー（可視textareaは触らない）
   async function doCopy(text){
     try{
       const ta=document.createElement('textarea');
@@ -236,7 +278,6 @@
     try{ await navigator.clipboard.writeText(text); return true; }catch(e){ return false; }
   }
 
-  // アクション
   document.getElementById('shareApp').addEventListener('click', async ()=>{
     const txt = promptBox.value.trim();
     if(!txt){ showToast('テキストが空です'); return; }
@@ -246,7 +287,6 @@
     window.open('https://chat.openai.com/','_blank','noopener');
     showToast(ok ? 'コピー済み。ChatGPTで貼り付けてください' : 'コピー不可。手動でペーストしてください');
   });
-
   document.getElementById('openWeb').addEventListener('click', async ()=>{
     const txt = promptBox.value.trim();
     if(!txt){ showToast('テキストが空です'); return; }
@@ -254,10 +294,9 @@
     window.open('https://chat.openai.com/','_blank','noopener');
     showToast(ok ? 'コピー済み。ChatGPTで貼り付けてください' : 'コピー不可。手動でペーストしてください');
   });
-
   document.getElementById('copyBtn').addEventListener('click', async ()=>{
     const ok = await doCopy(promptBox.value);
-    showToast(ok ? 'コピーしました' : 'コピーに失敗。長押し→ペーストしてください');
+    showToast(ok?'コピーしました':'コピーに失敗。長押し→ペーストしてください');
   });
 
   function encHash(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
@@ -266,6 +305,8 @@
   document.getElementById('saveURL').addEventListener('click', async ()=>{
     const txt = promptBox.value.trim();
     if(!txt){ showToast('テキストが空です'); return; }
+    // 長文はURLに不向きなので注意表記だけ残す
+    if (txt.length > 1500) { showToast('長文です。URL埋め込みは非推奨（共有/コピー推奨）'); return; }
     const url = location.origin + location.pathname + '#' + encHash(txt);
     history.replaceState(null,'', url);
     const ok = await doCopy(url);
@@ -278,7 +319,7 @@
     showToast('クリアしました');
   });
 
-  // ハッシュから読み込み（共有/NFC着地）
+  // ハッシュから読み込み
   (function bootFromHash(){
     const h = location.hash.startsWith('#') ? location.hash.slice(1) : '';
     if(!h) return;
