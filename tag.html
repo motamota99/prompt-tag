@@ -1,0 +1,69 @@
+<!doctype html><meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Prompt Tag</title>
+<style>
+  :root{--bg:#f3f5f9;--card:#fff;--fg:#111;--mut:#667}
+  html,body{height:100%} body{margin:0;background:var(--bg);font-family:system-ui,Inter,Arial}
+  main{max-width:640px;margin:8vh auto;padding:20px;text-align:center;background:var(--card);
+       border-radius:16px;box-shadow:0 10px 30px #0002}
+  h1{font-size:20px;margin:8px 0 4px} .mut{color:var(--mut);font-size:12px;margin:6px 0 14px}
+  .row{display:grid;gap:10px;grid-template-columns:1fr 1fr 1fr;margin:10px 0}
+  button,.btn{padding:10px 12px;border:0;border-radius:999px;background:#111;color:#fff;text-decoration:none;cursor:pointer}
+  .ghost{background:#e9ecf3;color:#111}
+  #msg{width:100%;min-height:84px;border:1px solid #dde3ef;border-radius:12px;padding:10px;font-size:14px}
+  small a{color:#445}
+</style>
+
+<main>
+  <div style="font-size:54px" id=emoji>🎯</div>
+  <h1 id=title>Prompt Tag</h1>
+  <div class=mut>①タップ → ②共有でChatGPT → ③送信（共有がない端末は自動コピー）</div>
+
+  <textarea id=msg placeholder="ここに送る文章（プロンプト）が入ります"></textarea>
+  <div class=row>
+    <button onclick="send()">ChatGPTへ</button>
+    <button class=ghost onclick="copy()">コピー</button>
+    <a class="btn ghost" href="https://chat.openai.com/" target="_blank" rel="noopener">Web版を開く</a>
+  </div>
+
+  <div class=mut>
+    プリセット（ワンタップで本文に入ります）
+  </div>
+  <div class=row>
+    <button class=ghost onclick="preset('🎮','Game News','Role: Game news editor. Lang: JA. 5 items. Each: Title|1-line|URL.')">🎮 ゲーム</button>
+    <button class=ghost onclick="preset('🛒','Mercari Coach','Role: Mercari coach. Lang: JA. Title<=40, Desc<=1000, Cat+Cond+Sellability.')">🛒 メルカリ</button>
+    <button class=ghost onclick="preset('🍳','Quick Lunch','Role: Chef. Lang: JA. 3 quick lunch ideas. No frying. Veg+egg.')">🍳 ランチ</button>
+  </div>
+
+  <small class=mut>
+    URLの <code>#</code> 以降に「絵文字|タイトル|本文」を入れて開くと自動でセットされます。<br>
+    例: <code>.../tag.html#🎮|Game%20News|Role:%20Game...</code>
+  </small>
+</main>
+
+<script>
+  // 受け取り：#の後ろを "絵文字|タイトル|本文" 形式で読み込む
+  const dec = s => decodeURIComponent((s||'').replace(/\+/g,'%20'));
+  const parts = location.hash ? dec(location.hash.slice(1)).split('|') : [];
+  if (parts[0]) document.getElementById('emoji').textContent = parts[0];
+  if (parts[1]) document.getElementById('title').textContent = parts[1];
+  if (parts[2]) document.getElementById('msg').value = parts.slice(2).join('|'); // 本文内の | も扱えるよう結合
+
+  function preset(e,t,m){ document.getElementById('emoji').textContent=e; document.getElementById('title').textContent=t; document.getElementById('msg').value=m; scrollTo({top:0,behavior:'smooth'}); }
+
+  async function copy(){
+    const txt = document.getElementById('msg').value.trim();
+    if(!txt) return alert('本文が空です');
+    try{ await navigator.clipboard.writeText(txt); alert('コピーしました'); }
+    catch(_){ alert('コピー失敗。長押し選択→コピーしてください。'); }
+  }
+  async function send(){
+    const txt = document.getElementById('msg').value.trim();
+    if(!txt) return alert('本文が空です');
+    try{
+      if (navigator.share) await navigator.share({text:txt});
+      else await navigator.clipboard.writeText(txt);
+    }catch(_){}
+    location.href='https://chat.openai.com/';
+  }
+</script>
